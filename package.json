@@ -1,0 +1,15 @@
+{
+    "name" : "citylife-activity-radar",
+    "description" : "A server listening for activity on citylife and visualising these on a map",
+    "author" : "VikingCo",
+    "version" : "0.1.0",
+    "dependencies" : {
+        "coffee-script" : "1.6.1",
+        "eco" : "1.1",
+        "express": "3.3.4",
+        "log4js": "0.6.6"
+    },
+    "engines" : {
+        "node":"0.8.x"
+    }
+}

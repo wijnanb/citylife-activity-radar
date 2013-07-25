@@ -23,10 +23,12 @@ server.get '/', (req, res) ->
     template = fs.readFileSync path.join(__dirname + "/index.eco.html"), "utf-8"
     context = 
         markers: markers
+        config: config
     res.send eco.render template, context
 
 
 server.post '/activities', (req, res) ->
+    console.log "POST /activities", req.body
     try
         activities = req.body
         for activity in activities

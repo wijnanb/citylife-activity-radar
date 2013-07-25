@@ -6,6 +6,7 @@ eco = require 'eco'
 log4js = require('log4js')
 log4js.replaceConsole()
 
+markers = []
 server = express()
 
 server.configure ->
@@ -19,8 +20,27 @@ server.configure ->
 
 server.get '/', (req, res) ->
     template = fs.readFileSync path.join(__dirname + "/index.eco.html"), "utf-8"
-    context = {}
+    context = 
+        markers: markers
     res.send eco.render template, context
+
+
+server.post '/activities', (req, res) ->
+    activities = req.body
+    for activity in activities
+        console.log "received activity", JSON.stringify activity
+
+        marker = 
+            geometry:
+                coordinates: [activity.longitude, activity.latitude]
+            properties:
+                'marker-color': '#ffc84e' #yellow
+                'marker-size': 'medium'
+                title: activity.title
+                description: activity.description
+
+        markers.push marker
+    res.send 200
 
 console.log "http server running on port " + config.server_port
 server.listen config.server_port

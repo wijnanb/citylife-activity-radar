@@ -3,3 +3,4 @@
 node_modules
 server.js
 config.js
+static/client.js

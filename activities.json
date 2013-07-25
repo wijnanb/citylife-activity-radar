@@ -1,0 +1,14 @@
+[
+	{
+		"latitude": 51,
+		"longitude": 5,
+		"title":"een",
+		"description":"about een"
+	},
+	{
+		"latitude": 51.4,
+		"longitude": 5,
+		"title":"twee",
+		"description":"about twee"
+	}
+]

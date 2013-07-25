@@ -11,6 +11,7 @@
 <body>
 <div id='map'></div>
 <script>
+
 function ignorePopups(markers) {
   var clean = [];
   for (var i = 0; i < markers.length; i++) {
@@ -18,6 +19,22 @@ function ignorePopups(markers) {
   }
   return clean;
 }
+
+loopMarkers = function(map, markerData) {
+  var i = 0;
+  function loop() {
+    window.setTimeout(function() {
+      var markers = ignorePopups(markerData);
+      if (++i > markers.length - 1) i = 0;
+      map.center(markers[i].location, true);
+      markers[i].showTooltip();
+      loop();
+    }, 3000);
+  }
+  loop();
+}
+
+/*
 // Create map
 mapbox.auto('map', 'examples.map-zr0njcqy', function(map, tiledata) {
   var i = 0;
@@ -32,6 +49,53 @@ mapbox.auto('map', 'examples.map-zr0njcqy', function(map, tiledata) {
   }
   loop();
 });
+*/
+
+
+
+var map = mapbox.map('map');
+map.addLayer(mapbox.layer().id('examples.map-zr0njcqy'));
+
+// Create an empty markers layer
+var markerLayer = mapbox.markers.layer();
+
+// Add interaction to this marker layer. This
+// binds tooltips to each marker that has title
+// and description defined.
+mapbox.markers.interaction(markerLayer);
+map.addLayer(markerLayer);
+
+map.zoom(9).center({ lat: 51, lon: 4.25 });
+
+// Add a single feature to the markers layer.
+// You can use .features() to add multiple features.
+markerLayer.features([{
+    geometry: {
+        coordinates: [4.5, 51]
+    },
+    properties: {
+        'marker-color': '#ffc84e',
+        "marker-size": "medium",
+        title: 'Example Marker',
+        description: 'This is a single marker.'
+    }
+  },
+  {
+      geometry: {
+          coordinates: [5, 51]
+      },
+      properties: {
+          'marker-color': '#ffc84e',
+          "marker-size": "medium",
+          title: 'Example Marker',
+          description: 'This is a single marker.'
+      }
+  }
+]);
+
+loopMarkers(map, markerLayer.markers())
+
+
 </script>
 </body>
 </html>

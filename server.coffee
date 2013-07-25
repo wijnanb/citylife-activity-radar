@@ -3,6 +3,7 @@ express = require 'express'
 fs = require 'fs'
 path = require 'path'
 eco = require 'eco'
+_ = require 'underscore'
 log4js = require('log4js')
 log4js.replaceConsole()
 
@@ -26,21 +27,32 @@ server.get '/', (req, res) ->
 
 
 server.post '/activities', (req, res) ->
-    activities = req.body
-    for activity in activities
-        console.log "received activity", JSON.stringify activity
+    try
+        activities = req.body
+        for activity in activities
+            console.log "received activity", JSON.stringify activity
 
-        marker = 
-            geometry:
-                coordinates: [activity.longitude, activity.latitude]
-            properties:
-                'marker-color': '#ffc84e' #yellow
-                'marker-size': 'medium'
-                title: activity.title
-                description: activity.description
+            marker = 
+                geometry:
+                    coordinates: [activity.longitude, activity.latitude]
+                properties:
+                    'marker-color': '#ffc84e' #yellow
+                    'marker-size': 'medium'
+                    title: activity.title
+                    description: activity.description
 
-        markers.push marker
-    res.send 200
+
+            is_duplicate = _.find markers, (element) -> _.isEqual element, marker
+            
+            unless is_duplicate
+                markers.push marker
+
+        res.send 200
+
+    catch error
+        console.error error
+        res.send 500
+
 
 console.log "http server running on port " + config.server_port
 server.listen config.server_port

@@ -40,31 +40,6 @@ createMap = ->
     markerLayer.features(markers)
 
     loopMarkers(map, markerLayer.markers())
-###
-markers = [{
-    geometry: {
-        coordinates: [4.5, 51]
-    },
-    properties: {
-        'marker-color': '#ffc84e',
-        "marker-size": "medium",
-        title: 'Example Marker',
-        description: 'This is a single marker.'
-    }
-  },
-  {
-      geometry: {
-          coordinates: [5, 51]
-      },
-      properties: {
-          'marker-color': '#ffc84e',
-          "marker-size": "medium",
-          title: 'Example Marker',
-          description: 'This is a single marker.'
-      }
-  }
-]
-###
 
 createMap()
 

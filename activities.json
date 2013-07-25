@@ -10,5 +10,11 @@
 		"longitude": 5,
 		"title":"twee",
 		"description":"about twee"
+	},
+	{
+		"latitude": 51,
+		"longitude": 4.6,
+		"title":"drie",
+		"description":"about drie"
 	}
 ]

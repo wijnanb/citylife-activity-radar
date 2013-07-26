@@ -48,7 +48,44 @@ createMap = ->
 
     loopMarkers(map, markerLayer.markers())
 
+connected = (status) ->
+    if status
+        $('#connection_status').html "connected"
+        $('#connection_status').addClass "connected"
+    else
+        $('#connection_status').html "not connected"
+        $('#connection_status').removeClass "connected"
+
+openSocket = ->
+    socket_options =
+        reconnect: true
+        reconnection_delay: 3000
+        max_reconnection_attempts: 1
+
+    socket = io.connect config.host+":"+config.port, socket_options
+
+    socket.on 'connect', (socket) ->
+        console.log '[SOCKET.IO] Connect'
+        connected(true)
+
+    socket.on 'update', (response) ->
+        # parse the response
+        # ...
+
+        connected(true)
+        console.log '[SOCKET.IO] Update', response
+    
+    socket.on 'disconnect', ->
+        connected(false)
+        console.log '[SOCKET.IO] Disconnected'
+   
+    socket.on 'error', (error) ->
+        connected(false)
+        console.error '[SOCKET.IO] Error', error
+
+
 createMap()
+openSocket()
 
 
 

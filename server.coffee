@@ -8,18 +8,28 @@ log4js = require('log4js')
 log4js.replaceConsole()
 
 markers = []
-server = express()
 
-server.configure ->
-    server.use '/static', express.static path.join(__dirname, '/static')
-    server.use express.bodyParser()
-    server.use (req, res, next) ->
+app = require('express')()
+server = require('http').createServer(app)
+io = require('socket.io').listen(server)
+
+socket = undefined
+io.enable 'browser client minification'         # send minified client
+io.enable 'browser client etag'                 # apply etag caching logic based on version number
+io.enable 'browser client gzip'                 # gzip the file
+io.set 'log level', config.sockets.log_level
+io.set 'transports', config.sockets.transports
+
+app.configure ->
+    app.use '/static', express.static path.join(__dirname, '/static')
+    app.use express.bodyParser()
+    app.use (req, res, next) ->
         res.header 'Access-Control-Allow-Origin', config.allowedDomains
         res.header 'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'
         res.header 'Access-Control-Allow-Headers', 'Content-Type'
         next()
 
-server.get '/', (req, res) ->
+app.get '/', (req, res) ->
     template = fs.readFileSync path.join(__dirname + "/index.eco.html"), "utf-8"
     context = 
         markers: markers
@@ -27,7 +37,7 @@ server.get '/', (req, res) ->
     res.send eco.render template, context
 
 
-server.post '/activities', (req, res) ->
+app.post '/activities', (req, res) ->
     console.log "POST /activities", req.body
     try
         activities = req.body
@@ -43,11 +53,13 @@ server.post '/activities', (req, res) ->
                     title: activity.title
                     description: activity.description
 
-
             is_duplicate = _.find markers, (element) -> _.isEqual element, marker
             
             unless is_duplicate
                 markers.push marker
+
+        console.log "broadcast", io.sockets
+        io.sockets.emit 'update', markers
 
         res.send 200
 
@@ -56,5 +68,6 @@ server.post '/activities', (req, res) ->
         res.send 500
 
 
-console.log "http server running on port " + config.server_port
-server.listen config.server_port
+console.log "http server running on port " + config.port
+console.log "sockets server running on port " + config.sockets.port
+server.listen config.port

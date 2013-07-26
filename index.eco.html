@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src='socket.io/socket.io.js'></script>
+    <script src='static/jquery-1.9.1.min.js'></script>
     <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
         .marker-title { font-weight: bold; }
+        #connection_status { position: absolute; top: 0; right: 0; padding: 4px 6px; font-size: 0.5em; background-color: black; color: red;  }
+        #connection_status.connected { background-color: black; color: green; }
     </style>
 </head>
 <body>
     <div id='map'></div>
+    <div id="connection_status">connecting&hellip;</div>
     <script>
         var config = <%- JSON.stringify @config %>
         var markers = <%- JSON.stringify @markers.reverse() %>

@@ -78,7 +78,10 @@ openSocket = ->
         console.log '[SOCKET.IO] Update', response
 
         for marker in response
+            marker.timeago = moment(marker.timestamp).fromNow()
             marker.timestamp = new Date(marker.timestamp)
+
+            marker.properties.description = """<span class="timeago">#{marker.timeago}</span>"""
 
             is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
 

@@ -62,6 +62,9 @@ app.post '/activities', (req, res) ->
                 markers.push marker
                 new_markers.push marker
 
+        # only keep the last n markers
+        markers = _.last(markers, config.max_markers) ? []
+
         # broadcast to all clients
         if new_markers.length > 0
             io.sockets.emit 'update', new_markers

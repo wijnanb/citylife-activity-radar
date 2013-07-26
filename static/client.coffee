@@ -88,6 +88,10 @@ openSocket = ->
 
         # sort markers by date
         _.sortBy markers, 'timestamp'
+
+        # only keep the last n markers
+        window.markers = _.last(markers, config.max_markers) ? []
+
         markerLayer.features(markers)
 
     socket.on 'disconnect', ->

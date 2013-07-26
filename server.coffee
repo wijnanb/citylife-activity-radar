@@ -54,7 +54,7 @@ app.post '/activities', (req, res) ->
                     'marker-size': 'medium'
                     title: activity.title
                     description: activity.description
-                timestamp: activity.timestamp
+                timestamp: activity.timestamp ? (new Date()).toJSON()
 
             is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
             

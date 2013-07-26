@@ -41,6 +41,8 @@ app.post '/activities', (req, res) ->
     console.log "POST /activities", req.body
     try
         activities = req.body
+        new_markers = []
+
         for activity in activities
             console.log "received activity", JSON.stringify activity
 
@@ -58,9 +60,11 @@ app.post '/activities', (req, res) ->
             
             unless is_duplicate
                 markers.push marker
+                new_markers.push marker
 
         # broadcast to all clients
-        io.sockets.emit 'update', markers
+        if new_markers.length > 0
+            io.sockets.emit 'update', new_markers
 
         res.send 200
 

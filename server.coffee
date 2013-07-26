@@ -77,5 +77,4 @@ app.post '/activities', (req, res) ->
 
 
 console.log "http server running on port " + config.port
-console.log "sockets server running on port " + config.sockets.port
 server.listen config.port

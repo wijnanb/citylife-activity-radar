@@ -67,7 +67,7 @@ openSocket = ->
         reconnection_delay: 3000
         max_reconnection_attempts: 1
 
-    socket = io.connect config.host+":"+config.port, socket_options
+    socket = io.connect null, socket_options
 
     socket.on 'connect', (socket) ->
         console.log '[SOCKET.IO] Connect'

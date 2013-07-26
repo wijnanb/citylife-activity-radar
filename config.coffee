@@ -10,3 +10,5 @@ exports.config =
     	zoom: 9
     	center: [51,4.25]
     	zoomDetail: 13
+    loop:
+        count: 10

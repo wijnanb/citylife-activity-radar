@@ -4,41 +4,41 @@
 		"longitude": 5,
 		"title":"een",
 		"description":"about een",
-		"timestamp": "2013-07-26T11:27:29.531Z"
+		"timestamp": "2013-07-21T11:27:29.531Z"
 	},
 	{
-		"latitude": 51.4,
+		"latitude": 51.2,
 		"longitude": 5,
 		"title":"twee",
 		"description":"about twee",
-		"timestamp": "2013-07-26T11:27:29.531Z"
+		"timestamp": "2013-07-22T11:27:29.531Z"
 	},
 	{
-		"latitude": 51,
+		"latitude": 51.3,
 		"longitude": 4.6,
 		"title":"drie",
 		"description":"about drie",
-		"timestamp": "2013-07-26T11:27:29.531Z"
-	},
-	{
-		"latitude": 51,
-		"longitude": 5,
-		"title":"vier",
-		"description":"about vier",
-		"timestamp": "2013-07-26T10:27:29.531Z"
+		"timestamp": "2013-07-23T11:27:29.531Z"
 	},
 	{
 		"latitude": 51.4,
 		"longitude": 5,
-		"title":"vijf",
-		"description":"about vijf",
-		"timestamp": "2013-07-26T11:27:29.531Z"
+		"title":"vier",
+		"description":"about vier",
+		"timestamp": "2013-07-24T10:27:29.531Z"
 	},
 	{
-		"latitude": 50,
-		"longitude": 4.6,
+		"latitude": 51.5,
+		"longitude": 5,
+		"title":"vijf",
+		"description":"about vijf",
+		"timestamp": "2013-07-25T11:27:29.531Z"
+	},
+	{
+		"latitude": 51.5,
+		"longitude": 5.5,
 		"title":"zes",
-		"description":"about seven",
-		"timestamp": "2013-07-26T09:27:29.531Z"
+		"description":"about zes",
+		"timestamp": "2013-07-26T11:27:29.531Z"
 	}
 ]

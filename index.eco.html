@@ -19,7 +19,7 @@
     <div id="connection_status">connecting&hellip;</div>
     <script>
         var config = <%- JSON.stringify @config %>
-        var markers = <%- JSON.stringify @markers.reverse() ? [] %>
+        var markers = <%- JSON.stringify @markers ? [] %>
     </script>
     <script src='static/client.js'></script>
 </body>

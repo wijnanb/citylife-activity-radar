@@ -1,11 +1,14 @@
 
+map = undefined
 markerLayer = undefined
   
-loopMarkers = (map, markerData) ->
+loopMarkers = () ->
     i = 0
 
     nextOne = ->
         window.setTimeout ->
+            markerData = markerLayer.markers()
+
             if markerData.length > 0
                 marker = markerData[i]
 
@@ -15,7 +18,8 @@ loopMarkers = (map, markerData) ->
                 , 300
 
                 i++
-                i = 0 if i >= markers.length
+                if i >= Math.min markerData.length-1, config.loop.count
+                    i = 0
 
             nextOne()
         , 4000
@@ -47,7 +51,7 @@ createMap = ->
 
     markerLayer.features(markers)
 
-    loopMarkers(map, markerLayer.markers())
+    loopMarkers()
 
 connected = (status) ->
     if status
@@ -79,15 +83,13 @@ openSocket = ->
             is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
 
             unless is_duplicate
-                
                 markers.push marker
-
-                markerLayer.add_feature(marker)
                 console.log 'new Marker', marker
 
         # sort markers by date
         _.sortBy markers, 'timestamp'
-    
+        markerLayer.features(markers)
+
     socket.on 'disconnect', ->
         connected(false)
         console.log '[SOCKET.IO] Disconnected'

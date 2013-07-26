@@ -15,6 +15,8 @@ loopMarkers = () ->
                 map.center marker.location, true
                 window.setTimeout ->
                     marker.showTooltip()
+                    
+                    $(marker.tooltip.element).find('.timeago').livestamp(marker.data.timestamp)
                 , 300
 
                 i++
@@ -81,7 +83,7 @@ openSocket = ->
             marker.timeago = moment(marker.timestamp).fromNow()
             marker.timestamp = new Date(marker.timestamp)
 
-            marker.properties.description = """<span class="timeago">#{marker.timeago}</span>"""
+            marker.properties.description = """<span class="timeago"></span>"""
 
             is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
 

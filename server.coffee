@@ -52,13 +52,14 @@ app.post '/activities', (req, res) ->
                     'marker-size': 'medium'
                     title: activity.title
                     description: activity.description
+                timestamp: activity.timestamp
 
-            is_duplicate = _.find markers, (element) -> _.isEqual element, marker
+            is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
             
             unless is_duplicate
                 markers.push marker
 
-        console.log "broadcast", io.sockets
+        # broadcast to all clients
         io.sockets.emit 'update', markers
 
         res.send 200

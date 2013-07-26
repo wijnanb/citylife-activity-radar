@@ -1,21 +1,22 @@
 
-ignorePopups = (markers) ->
-    clean = []
-    for marker in markers
-        clean.push marker if marker.showTooltip
-
-    return clean
+markerLayer = undefined
   
 loopMarkers = (map, markerData) ->
     i = 0
 
     nextOne = ->
         window.setTimeout ->
-            markers = ignorePopups markerData
-            i = 0 if (++i > markers.length - 1)
-            
-            map.center(markers[i].location, true)
-            markers[i].showTooltip()
+            if markerData.length > 0
+                marker = markerData[i]
+
+                map.center marker.location, true
+                window.setTimeout ->
+                    marker.showTooltip()
+                , 300
+
+                i++
+                i = 0 if i >= markers.length
+
             nextOne()
         , 4000
 
@@ -69,11 +70,23 @@ openSocket = ->
         connected(true)
 
     socket.on 'update', (response) ->
-        # parse the response
-        # ...
-
         connected(true)
         console.log '[SOCKET.IO] Update', response
+
+        for marker in response
+            marker.timestamp = new Date(marker.timestamp)
+
+            is_duplicate = ! _.isUndefined _.find markers, (element) -> _.isEqual element, marker
+
+            unless is_duplicate
+                
+                markers.push marker
+
+                markerLayer.add_feature(marker)
+                console.log 'new Marker', marker
+
+        # sort markers by date
+        _.sortBy markers, 'timestamp'
     
     socket.on 'disconnect', ->
         connected(false)

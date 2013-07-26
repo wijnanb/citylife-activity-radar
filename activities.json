@@ -3,18 +3,42 @@
 		"latitude": 51,
 		"longitude": 5,
 		"title":"een",
-		"description":"about een"
+		"description":"about een",
+		"timestamp": "2013-07-26T11:27:29.531Z"
 	},
 	{
 		"latitude": 51.4,
 		"longitude": 5,
 		"title":"twee",
-		"description":"about twee"
+		"description":"about twee",
+		"timestamp": "2013-07-26T11:27:29.531Z"
 	},
 	{
 		"latitude": 51,
 		"longitude": 4.6,
 		"title":"drie",
-		"description":"about drie"
+		"description":"about drie",
+		"timestamp": "2013-07-26T11:27:29.531Z"
+	},
+	{
+		"latitude": 51,
+		"longitude": 5,
+		"title":"vier",
+		"description":"about vier",
+		"timestamp": "2013-07-26T10:27:29.531Z"
+	},
+	{
+		"latitude": 51.4,
+		"longitude": 5,
+		"title":"vijf",
+		"description":"about vijf",
+		"timestamp": "2013-07-26T11:27:29.531Z"
+	},
+	{
+		"latitude": 50,
+		"longitude": 4.6,
+		"title":"zes",
+		"description":"about seven",
+		"timestamp": "2013-07-26T09:27:29.531Z"
 	}
 ]
